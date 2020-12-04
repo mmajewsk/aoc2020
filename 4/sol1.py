@@ -27,19 +27,14 @@ for d in elements:
     for j in d:
         k,v = j.split(":")
         dic[k] = v
-    # if len(set(allowd).intersection(set(dic.keys()))) == len(allowd):
-    s = 0
-    for c in allowd:
-        if c in dic.keys():
-            s += 1
-    if s == 7:
+    if len(set(allowd).intersection(set(dic.keys()))) == len(allowd):
         chck = [len(dic['byr']) == 4 and 1920<=int(dic['byr'])<=2002,
         len(dic['iyr']) == 4 and 2010<=int(dic['iyr'])<=2020,
         len(dic['eyr']) == 4 and 2020<=int(dic['eyr'])<=2030,
-         (dic['hgt'][-2:] == 'cm' and 150<=int(dic['hgt'][:-2])<=193) or (dic['hgt'][-2:] == 'in' and 59<=int(dic['hgt'][:-2])<=76),
-         (dic['hcl'][0] == "#" and len(dic['hcl'][1:])==6 and dic['hcl'][1:].isalnum() and dic['hcl'][1:].lower() == dic['hcl'][1:]),
-         (dic['ecl'] in eyes),
-         (len(dic['pid'])==9)]
+        (dic['hgt'][-2:] == 'cm' and 150<=int(dic['hgt'][:-2])<=193) or (dic['hgt'][-2:] == 'in' and 59<=int(dic['hgt'][:-2])<=76),
+        (dic['hcl'][0] == "#" and len(dic['hcl'][1:])==6 and dic['hcl'][1:].isalnum() and dic['hcl'][1:].lower() == dic['hcl'][1:]),
+        (dic['ecl'] in eyes),
+        (len(dic['pid'])==9)]
         if all(chck):
             counter +=1
 
