@@ -1,7 +1,5 @@
-
 data = open("input.txt", "r").read().splitlines()
 data.append("\n")
-# print(data)
 data2 = []
 tmp = []
 for v in data:
@@ -32,6 +30,7 @@ for v in rules:
 
 notinside = []
 inside = []
+# filtering invalid
 for v in nearby[1:]:
     if v == '\n':
         continue
@@ -40,22 +39,18 @@ for v in nearby[1:]:
     if set(rvals).issubset(rules2):
         inside.append(rvals)
 
+# columns, not rows
 in_t = list(zip(*inside))
-# print(inside)
-# print(rules_d)
 
+# which columns fulfill rules
 from collections import defaultdict
 ordering = defaultdict(list)
 for i,v in enumerate(in_t):
-    # print(v)
     for k in rules_d:
         if set(v).issubset(set(rules_d[k])):
             ordering[k].append(i)
         ordering[k] = sorted(ordering[k])
 
-# for k in ordering:
-#     print(k, ordering[k])
-#
 # GOD OF SORT
 inv_map = {}
 srtd = sorted(ordering.items(), key = lambda v: len(v[1]))
@@ -64,28 +59,9 @@ for i,v in enumerate(srtd):
         g = set(v[1]) - set(srtd[i-1][1])
     else:
         g = set(v[1])
-    print(v[0], g)
     inv_map[list(g)[0]] = v[0]
 
-
-good = {}
-allkeys = list(ordering.keys())
-found_numb = []
-
-# ITERATING LOW LIFE
-# for i in range(20):
-#     for i,a in enumerate(allkeys):
-#         daf = set(ordering[a]) - set(found_numb)
-#         # print(daf)
-#         if len(daf) == 1:
-#             good[a] = list(daf)[0]
-#             found_numb.append(good[a])
-#             del allkeys[i]
-#             break
-#     # print("all")
-#     # print(allkeys)
-
-# inv_map = {v: k for k, v in good.items()}
+# For(d) Multiplah
 dlg = list(map(int,my_ticket[1].split(',')))
 mltp = 1
 for i, a in enumerate(dlg):
@@ -93,5 +69,3 @@ for i, a in enumerate(dlg):
         # print(inv_map[i], a)
         mltp *= a
 print(mltp)
-
-
