@@ -49,47 +49,49 @@ ordering = defaultdict(list)
 for i,v in enumerate(in_t):
     # print(v)
     for k in rules_d:
-        # print(set(v), set(rules_d[k]), set(v).issubset(set(rules_d[k])))
         if set(v).issubset(set(rules_d[k])):
             ordering[k].append(i)
+        ordering[k] = sorted(ordering[k])
 
-for k in ordering:
-    print(k, ordering[k])
+# for k in ordering:
+#     print(k, ordering[k])
+#
+# GOD OF SORT
+inv_map = {}
+srtd = sorted(ordering.items(), key = lambda v: len(v[1]))
+for i,v in enumerate(srtd):
+    if i-1 >= 0:
+        g = set(v[1]) - set(srtd[i-1][1])
+    else:
+        g = set(v[1])
+    print(v[0], g)
+    inv_map[list(g)[0]] = v[0]
+
 
 good = {}
 allkeys = list(ordering.keys())
 found_numb = []
-for i in range(20):
-    for i,a in enumerate(allkeys):
-        daf = set(ordering[a]) - set(found_numb)
-        print(daf)
-        if len(daf) == 1:
-            good[a] = list(daf)[0]
-            found_numb.append(good[a])
-            del allkeys[i]
-            break
-    print("all")
-    print(allkeys)
 
-inv_map = {v: k for k, v in good.items()}
+# ITERATING LOW LIFE
+# for i in range(20):
+#     for i,a in enumerate(allkeys):
+#         daf = set(ordering[a]) - set(found_numb)
+#         # print(daf)
+#         if len(daf) == 1:
+#             good[a] = list(daf)[0]
+#             found_numb.append(good[a])
+#             del allkeys[i]
+#             break
+#     # print("all")
+#     # print(allkeys)
+
+# inv_map = {v: k for k, v in good.items()}
 dlg = list(map(int,my_ticket[1].split(',')))
 mltp = 1
 for i, a in enumerate(dlg):
     if 'departure' in inv_map[i]:
-        print(inv_map[i], a)
+        # print(inv_map[i], a)
         mltp *= a
 print(mltp)
 
 
-
-# print(ordering)
-#
-# sol = dict(zip(ordering, list(map(int,my_ticket[1].split(',')))))
-# print(sol)
-# tmpl = 1
-# for k in sol:
-#     if 'departure' in k:
-#         tmpl *= sol[k]
-#         print(k, sol[k])
-# print(tmpl)
-# print(tmpl)
