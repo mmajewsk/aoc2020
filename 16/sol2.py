@@ -48,21 +48,20 @@ for i,v in enumerate(in_t):
             ordering[k].append(i)
         ordering[k] = sorted(ordering[k])
 
-# GOD OF SORT
+# GOD OF (some) SORT
 inv_map = {}
 srtd = sorted(ordering.items(), key = lambda v: len(v[1]))
 for i,v in enumerate(srtd):
-    if i-1 >= 0:
-        g = set(v[1]) - set(srtd[i-1][1])
-    else:
+    if len(v[1]) == 1:
         g = set(v[1])
+    else:
+        g = set(v[1]) - set(srtd[i-1][1])
     inv_map[list(g)[0]] = v[0]
 
-# For(d) Multiplah
+# (Fiat) Multiplah
 dlg = list(map(int,my_ticket[1].split(',')))
 mltp = 1
 for i, a in enumerate(dlg):
     if 'departure' in inv_map[i]:
-        # print(inv_map[i], a)
         mltp *= a
 print(mltp)
