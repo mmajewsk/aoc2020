@@ -21,12 +21,9 @@ for v in rules:
     range2 = list(map(int, ranges[1].split('-')))
     k = v.split(':')[0]
     rules_d[k] = []
-    for i in range(range1[0], range1[1]+1):
-        rules2.add(i)
-        rules_d[k].append(i)
-    for i in range(range2[0], range2[1]+1):
-        rules_d[k].append(i)
-        rules2.add(i)
+    rules_d[k] += range(range1[0], range1[1]+1)
+    rules_d[k] += range(range2[0], range2[1]+1)
+    rules2 |= set(rules_d[k])
 
 notinside = []
 inside = []
