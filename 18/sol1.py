@@ -38,26 +38,18 @@ for d in data:
         elif len(openl) != 0 and '(' not in v and ')' not in v:
             openl[-1].append(v)
         if '(' in v:
-            nmbr = ""
-            for j in v:
-                if j == '(':
-                    openl.append([])
-                else:
-                    nmbr += j
-            openl[-1].append(nmbr)
+            p = v.count("(")
+            for j in range(p):
+                openl.append([])
+            openl[-1].append(v[p:])
         if ')' in v:
-            nmbr = ""
-            appndd = False
-            for j in v:
-                if j != ')':
-                    nmbr += j
-                else:
-                    if not appndd:
-                        openl[-1].append(nmbr)
-                        appndd = True
-                    openl = consume(openl)
+            p = v.count(")")
+            openl[-1].append(v[:-p])
+            for j in range(p):
+                openl = consume(openl)
             if not isinstance(openl, list):
                 levels.append(openl)
                 openl = []
     res = calculate(levels)
     suma += res
+print(suma)
