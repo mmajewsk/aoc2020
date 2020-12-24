@@ -75,9 +75,6 @@ def count_black(m):
     return len(flipped)
 
 x,y,z= list(zip(*Hex.allhexes.keys()))
-xmin, xmax = min(x), max(x)
-ymin, ymax = min(y), max(y)
-zmin, zmax = min(z), max(z)
 
 print("prefill", len(Hex.allhexes))
 
